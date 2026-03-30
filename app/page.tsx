@@ -8,6 +8,7 @@ export default function DotEnvInspector() {
       <Suspense fallback={<div>dynamic MY_DOTENV: Loading...</div>}>
         <DynamicInspector />
       </Suspense>
+      <CachedInspector />
     </div>
   );
 }
@@ -24,4 +25,11 @@ export async function DynamicInspector() {
   const dotenv = process.env.MY_DOTENV;
 
   return <div>dynamic MY_DOTENV: {dotenv == null ? 'undefined' : dotenv}</div>;
+}
+
+export async function CachedInspector() {
+  'use cache';
+  const dotenv = process.env.MY_DOTENV;
+
+  return <div>cached MY_DOTENV: {dotenv == null ? 'undefined' : dotenv}</div>;
 }
