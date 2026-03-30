@@ -1,3 +1,4 @@
+import { cacheLife } from 'next/cache';
 import { connection } from 'next/server';
 import { Suspense } from 'react';
 
@@ -29,6 +30,14 @@ export async function DynamicInspector() {
 
 export async function CachedInspector() {
   'use cache';
+
+  // keep cache alive for a year
+  cacheLife({
+    expire: 31540000,
+    revalidate: 31540000,
+    stale: 31540000,
+  });
+
   const dotenv = process.env.MY_DOTENV;
 
   return <div>cached MY_DOTENV: {dotenv == null ? 'undefined' : dotenv}</div>;
